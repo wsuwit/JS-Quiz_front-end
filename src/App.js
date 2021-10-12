@@ -1,5 +1,6 @@
 import "./App.css";
 import About from "./components/About";
+import Curriculum from "./components/Curriculum";
 import Home from "./components/Home";
 import LeaderBoard from "./components/LeaderBoard";
 import Navbar from "./components/Navbar";
@@ -10,7 +11,8 @@ function App() {
       <Navbar />
       {/* <Home /> */}
       {/* <About /> */}
-      <LeaderBoard />
+      {/* <LeaderBoard /> */}
+      <Curriculum />
     </div>
   );
 }
