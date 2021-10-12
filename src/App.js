@@ -5,6 +5,7 @@ import Curriculum from "./components/Curriculum";
 import Home from "./components/Home";
 import LeaderBoard from "./components/LeaderBoard";
 import Navbar from "./components/Navbar";
+import Quiz from "./components/Quiz";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       {/* <About /> */}
       {/* <LeaderBoard /> */}
       {/* <Curriculum /> */}
-      <AdminTool />
+      {/* <AdminTool /> */}
+      <Quiz />
     </div>
   );
 }
