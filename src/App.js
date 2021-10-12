@@ -1,5 +1,6 @@
 import "./App.css";
 import About from "./components/About";
+import AdminTool from "./components/AdminTool";
 import Curriculum from "./components/Curriculum";
 import Home from "./components/Home";
 import LeaderBoard from "./components/LeaderBoard";
@@ -12,7 +13,8 @@ function App() {
       {/* <Home /> */}
       {/* <About /> */}
       {/* <LeaderBoard /> */}
-      <Curriculum />
+      {/* <Curriculum /> */}
+      <AdminTool />
     </div>
   );
 }
