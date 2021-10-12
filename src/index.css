@@ -1,0 +1,114 @@
+/* Whole page */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Lucida Sans", "Lucida Sans Regular", Verdana, sans-serif;
+  box-sizing: border-box;
+  background: url(https://images.unsplash.com/photo-1554050857-c84a8abdb5e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=282&q=80),
+    #333;
+}
+
+/* Nav bar */
+.logo {
+  font-family: "Luckiest Guy", fantasy;
+}
+
+/* Header content */
+h1 {
+  font-family: "Lucida Calligraphy", Verdana, sans-serif;
+}
+
+.Header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.Header--background {
+  background: url("https://poweredbyrobotsblog.files.wordpress.com/2016/09/dark-castle.jpg");
+  background-size: cover;
+}
+
+.Header__content-box {
+  max-width: 500px;
+}
+
+.Header--quiz {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Content section */
+.img-width {
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.Article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+tr:nth-child(even) {
+  background-color: #999;
+}
+
+hr {
+  opacity: 15%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.Quiz--bg {
+  background-image: url(https://i.gifer.com/IrF.gif);
+}
+
+/* Admin tool */
+.Admin__nav {
+  background-color: #999;
+}
+
+.Admin__section {
+  display: flex;
+  align-items: flex-start;
+}
+
+.Quiz {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Quiz__choice {
+  cursor: pointer;
+  background-color: forestgreen;
+  border-radius: 4px 4px;
+  min-width: 160px;
+  width: 40%;
+}
+
+.Quiz__choice:hover {
+  background-color: darkgreen;
+}
+
+/* Footer */
+.Footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.social-icon {
+  width: 60px;
+}
