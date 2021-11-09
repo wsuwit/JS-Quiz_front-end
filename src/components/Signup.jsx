@@ -44,16 +44,6 @@ function Signup() {
                 required
               />
               <label>
-                <b>Username</b>
-              </label>
-              <input
-                className="w3-input w3-border w3-margin-bottom"
-                type="text"
-                placeholder="Enter Username"
-                name="usrname"
-                required
-              />
-              <label>
                 <b>Password</b>
               </label>
               <input

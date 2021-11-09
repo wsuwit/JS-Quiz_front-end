@@ -1,6 +1,7 @@
 import "./App.css";
 import About from "./components/About";
-import AdminTool from "./components/AdminTool";
+import AdminTool from "./components/Admin/AdminTool";
+import CreateQuiz from "./components/Admin/CreateQuiz";
 import Curriculum from "./components/Curriculum";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
@@ -16,7 +17,7 @@ function App() {
       {/* <About /> */}
       {/* <LeaderBoard /> */}
       {/* <Curriculum /> */}
-      {/* <AdminTool /> */}
+      <AdminTool />
       {/* <Quiz /> */}
       <Footer />
     </div>

@@ -1,6 +1,33 @@
-import React from "react";
+import axios from "../config/axios";
+import React, { useContext, useState } from "react";
+import { setToken, getToken } from "../services/localStorage";
+import { AuthContext } from "../contexts/authContext";
+import { UserContext } from "../contexts/userContext";
+import jwtDecode from "jwt-decode";
 
-function Login() {
+function Login({ loginStatus }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { setToggleUser } = useContext(UserContext);
+  const { user, setUser } = useContext(AuthContext);
+
+  const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("/auth/login", {
+        email,
+        password
+      });
+      // console.log('LogRes: ', res);
+      setToken(res.data.token);
+      setUser(jwtDecode(res.data.token));
+      setToggleUser((current) => !current);
+    } catch (error) {
+      console.dir(error);
+    }
+  };
+
   return (
     <>
       <div id="LogIn-modal" className="w3-modal">
@@ -34,7 +61,7 @@ function Login() {
           <form className="w3-container">
             <div className="w3-section">
               <label>
-                <b>Username</b>
+                <b>Email</b>
               </label>
               <input
                 className="w3-input w3-border w3-margin-bottom"
@@ -66,7 +93,7 @@ function Login() {
                     document.getElementById("LogIn-modal").style.display =
                       "none";
                   }}
-                  className="w3-text-orange"
+                  className="w3-text-orange w3-button"
                 >
                   Create Account
                 </button>
@@ -74,7 +101,9 @@ function Login() {
               <button
                 className="w3-button w3-block w3-orange w3-text-white w3-section w3-padding"
                 type="submit"
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
               >
                 Continue
               </button>

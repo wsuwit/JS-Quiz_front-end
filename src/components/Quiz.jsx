@@ -1,6 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
+import quizBank from "../quizBankCenter/quizBank";
 
 function Quiz() {
+  const [subjectIndex, setSubjectIndex] = useState(0);
+  const { subjectName, questions } = quizBank[subjectIndex];
+  const [showQuizStart, setShowQuizStart] = useState(true);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [showQuizResult, setShowQuizResult] = useState(false);
+  const [score, setScore] = useState(0);
+  const resultPercent = (score / questions.length) * 100;
+
+  const handleAnswerOptionClick = (isCorrect) => {
+    if (isCorrect) {
+      setScore(score + 1);
+    }
+
+    const nextQuestion = currentQuestion + 1;
+    if (nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setShowQuizResult(true);
+    }
+  };
+
+  const handleButtonSubjectIndex = () => {
+    if (subjectIndex < quizBank.length - 1) {
+      setSubjectIndex((currentIndex) => currentIndex + 1);
+    } else {
+      setSubjectIndex(0);
+    }
+    setScore(0);
+    setCurrentQuestion(0);
+    setShowQuizStart(true);
+    setShowQuizResult(false);
+  };
+
+  const handleButtonRetake = () => {
+    setScore(0);
+    setCurrentQuestion(0);
+    setShowQuizStart(true);
+    setShowQuizResult(false);
+  };
+
   return (
     <>
       <main id="QuizPage" className="w3-container w3-animate-opacity Page">
@@ -19,122 +60,117 @@ function Quiz() {
 
         {/* <!-- Content section --> */}
         <section className="w3-container">
-          {/* <!-- Quiz start --> */}
-          <article
-            id="QuizStart"
-            className="w3-row-padding w3-margin w3-center w3-animate-opacity Article QuizTab"
-          >
-            <div className="w3-col s12 m12 w3-margin-bottom">
-              <h4 className="w3-text-orange">JavaScript Easy Quiz</h4>
-              <p className="w3-text-white">Number of Quizzes : 10</p>
-              <p className="w3-text-white">Click on the light</p>
-            </div>
-            <img
-              src="https://i.gifer.com/7bk3.gif"
-              alt="the light"
-              width="300px"
-              className="w3-ripple pointer"
-              onClick={() => {}}
-            />
-          </article>
-
-          {/* <!-- Quizzing --> */}
-          <div>
+          {showQuizStart ? (
+            // {/* <!-- Quiz start --> */}
             <article
-              id="Quizzing1"
-              className="w3-dark-gray w3-padding-16 w3-animate-opacity QuizTab hidden Quiz--bg"
-            >
-              <p className="w3-margin-left">JavaScript Easy Quiz</p>
-              <p className="w3-margin-left">?1 of 10</p>
-              <p className="w3-margin-left">
-                Which of the following is correct about JavaScript?
-              </p>
-              <div className="Quiz">
-                <p className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice">
-                  JavaScript is a lightweight, interpreted programming language.
-                </p>
-                <p className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice">
-                  JavaScript has object-oriented capabilities that allows you to
-                  build interactivity into otherwise static HTML pages.
-                </p>
-                <p className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice">
-                  The general-purpose core of the language has been embedded in
-                  Netscape, Internet Explorer, and other web browser.
-                </p>
-                <p
-                  className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice"
-                  onClick={() => {}}
-                >
-                  All of the above.
-                </p>
-              </div>
-              <hr />
-            </article>
-
-            <article
-              id="Quizzing10"
-              className="w3-dark-gray w3-padding-16 w3-animate-right QuizTab hidden Quiz--bg"
-            >
-              <p className="w3-margin-left">JavaScript Easy Quiz</p>
-              <p className="w3-margin-left">?10 of 10</p>
-              <p className="w3-margin-left">
-                Which of the following function of Array object represents the
-                source code of an object?
-              </p>
-              <div className="Quiz">
-                <p
-                  className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice"
-                  onClick={() => {}}
-                >
-                  toSource()
-                </p>
-                <p className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice">
-                  splice()
-                </p>
-                <p className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice">
-                  toString()
-                </p>
-                <p className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice">
-                  unshift()
-                </p>
-              </div>
-              <hr />
-            </article>
-
-            {/* <!-- Quiz End --> */}
-            <article
-              id="QuizEnd"
-              className="w3-row-padding w3-margin w3-center w3-animate-opacity Article QuizTab hidden"
+              id="QuizStart"
+              className="w3-row-padding w3-margin w3-center w3-animate-opacity Article QuizTab"
             >
               <div className="w3-col s12 m12 w3-margin-bottom">
-                <h4 className="w3-text-orange">{`JavaScript Easy Quiz : 10/10 => Scored 100%`}</h4>
+                <h4 className="w3-text-orange">{subjectName}</h4>
                 <p className="w3-text-white">
-                  Result: Perfect! We can expect great things from you.
+                  Number of Quizzes : {questions.length}
                 </p>
-                <p className="w3-text-white">
-                  <b style={{ color: "gold" }}>"Next, click the sun light"</b>{" "}
-                  ||{" "}
-                  <em style={{ color: "skyblue" }}>
-                    "Retake, click the swirling light"
-                  </em>
-                </p>
+                <p className="w3-text-white">Click on the light</p>
               </div>
               <img
                 src="https://i.gifer.com/7bk3.gif"
                 alt="the light"
                 width="300px"
                 className="w3-ripple pointer"
-                onClick={() => {}}
-              />
-              <img
-                src="https://i.gifer.com/YVWA.gif"
-                alt="the light"
-                width="150px"
-                className="w3-ripple pointer"
-                onClick={() => {}}
+                onClick={() => {
+                  setShowQuizStart(false);
+                }}
               />
             </article>
-          </div>
+          ) : showQuizResult ? (
+            // {/* <!-- Quiz Result --> */}
+            <article
+              id="QuizResult"
+              className="w3-row-padding w3-margin w3-center w3-animate-opacity Article QuizTab "
+            >
+              <div className="w3-col s12 m12 w3-margin-bottom">
+                <h4 className="w3-text-orange">{`${subjectName} : ${score}/${questions.length} => Scored ${resultPercent}%`}</h4>
+                <p className="w3-text-white">
+                  Result:{" "}
+                  {resultPercent === 100
+                    ? `Perfect! You are the chosen one.`
+                    : resultPercent >= 90
+                    ? `Greate! We can expect great things from you.`
+                    : resultPercent >= 80
+                    ? `Alright! It's enough to pass the test.`
+                    : `Sorry! You do not pass the test.`}
+                </p>
+                <p className="w3-text-white">
+                  {/* # Conditional rendering, if output are multi-HTML-tags. The parent wrappers (<>child</>) are needed */}
+                  {resultPercent >= 80 && (
+                    <>
+                      <b
+                        style={{ color: "gold", cursor: "pointer" }}
+                        onClick={handleButtonSubjectIndex}
+                      >
+                        "Next, click the sun light"
+                      </b>{" "}
+                      <b style={{ color: "magenta" }}>||</b>{" "}
+                    </>
+                  )}
+                  <em
+                    style={{ color: "skyblue", cursor: "pointer" }}
+                    onClick={handleButtonRetake}
+                  >
+                    "Retake, click the swirling light"
+                  </em>
+                </p>
+              </div>
+              {resultPercent >= 80 && (
+                <img
+                  src="https://i.gifer.com/7bk3.gif"
+                  alt="the light"
+                  width="300px"
+                  className="w3-ripple pointer"
+                  onClick={handleButtonSubjectIndex}
+                />
+              )}
+              {/* # Sometimes re-rendering of state can cause the src link ERROR */}
+              <img
+                // ? Not allowed to load local resource: file://images/the-swirling.gif
+                src="https://i.gifer.com/YVWA.gif"
+                alt="the swirling"
+                width="150px"
+                className="w3-ripple pointer"
+                onClick={handleButtonRetake}
+              />
+            </article>
+          ) : (
+            // {/* <!-- Quizzing --> */}
+            <div>
+              <article className="w3-dark-gray w3-padding-16 w3-animate-opacity Quiz--bg ">
+                <p className="w3-margin-left">{subjectName}</p>
+                <p className="w3-margin-left">
+                  ?{currentQuestion + 1} of {questions.length}
+                </p>
+                <p className="w3-margin-left">
+                  {questions[currentQuestion].questionText}
+                </p>
+                <div className="Quiz">
+                  {questions[currentQuestion].answerOptions
+                    .sort(() => Math.random() - 0.5)
+                    .map((answerOption, idx) => (
+                      <p
+                        key={idx}
+                        className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice"
+                        onClick={() =>
+                          handleAnswerOptionClick(answerOption.isCorrect)
+                        }
+                      >
+                        {answerOption.answerText}
+                      </p>
+                    ))}
+                </div>
+                <hr />
+              </article>
+            </div>
+          )}
         </section>
         <hr />
       </main>

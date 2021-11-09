@@ -42,7 +42,7 @@ h1 {
   align-items: center;
 }
 
-/* Content section */
+/* Section content */
 .img-width {
   min-width: 300px;
   max-width: 400px;
@@ -85,6 +85,7 @@ hr {
   align-items: flex-start;
 }
 
+/* Quiz */
 .Quiz {
   display: flex;
   flex-wrap: wrap;
