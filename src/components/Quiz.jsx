@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import quizBank from "../quizBankCenter/quizBank";
 import light from "./images/light.gif";
 import swirling from "./images/swirling.gif";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/authContext";
 
 function Quiz() {
   const [subjectIndex, setSubjectIndex] = useState(0);
@@ -13,6 +15,8 @@ function Quiz() {
   const [allQuizzes, setAllQuizzes] = useState(quizBank);
   const { subjectName, questions } = allQuizzes[subjectIndex];
   const resultPercent = (score / questions.length) * 100;
+
+  const { user } = useContext(AuthContext);
 
   console.log("@allQuizzes:", allQuizzes);
   console.log("@subjectIndex:", subjectIndex);
@@ -26,7 +30,7 @@ function Quiz() {
 
   const handleAnswerOptionClick = (isCorrect) => {
     if (isCorrect) {
-      setScore(score + 1);
+      setScore((curScore) => curScore + 1);
     }
 
     const nextQuestion = currentQuestion + 1;
@@ -34,12 +38,25 @@ function Quiz() {
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
     } else {
+      // if (user) {
+      //   axios
+      //     .put(`/user/updateDetail`, { score, currentIndex: subjectIndex })
+      //     .then((res) => console.log("@resScore:", res.data.rows))
+      //     .catch((err) => console.log(err));
+      // }
       setShowQuizResult(true);
     }
   };
 
   const handleButtonSubjectIndex = () => {
-    if (subjectIndex < quizBank.length - 1) {
+    if (user) {
+      axios
+        .put(`/user/updateDetail`, { score, currentIndex: subjectIndex })
+        .then((res) => console.log("@resScore:", res.data.rows))
+        .catch((err) => console.log(err));
+    }
+
+    if (subjectIndex < allQuizzes.length - 1) {
       setSubjectIndex((currentIndex) => currentIndex + 1);
     } else {
       setSubjectIndex(0);
@@ -52,6 +69,13 @@ function Quiz() {
   };
 
   const handleButtonRetake = () => {
+    if (user) {
+      axios
+        .put(`/user/updateDetail`, { score, currentIndex: subjectIndex })
+        .then((res) => console.log("@resScore:", res.data.rows))
+        .catch((err) => console.log(err));
+    }
+
     setScore(0);
     setCurrentQuestion(0);
     setShowQuizStart(true);
@@ -106,7 +130,9 @@ function Quiz() {
               className="w3-row-padding w3-margin w3-center w3-animate-opacity Article QuizTab "
             >
               <div className="w3-col s12 m12 w3-margin-bottom">
-                <h4 className="w3-text-orange">{`${subjectName} : ${score}/${questions.length} => Scored ${resultPercent}%`}</h4>
+                <h4 className="w3-text-orange">{`${subjectName} : ${score}/${
+                  questions.length
+                } => Scored ${resultPercent.toFixed(0)}%`}</h4>
                 <p className="w3-text-white">
                   Result:{" "}
                   {resultPercent === 100

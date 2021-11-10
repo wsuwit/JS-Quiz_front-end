@@ -97,19 +97,6 @@ function DropBarMenu() {
           >
             My Profile
           </MenuItem> */}
-          {/* <MenuItem
-          onClick={() => {
-            history.push({
-              pathname: `/my-profile`,
-              state: {
-                alignmentHistory: "dashboard",
-                alignmentDashboard: "2"
-              }
-            });
-          }}
-          >
-            My Course
-          </MenuItem> */}
           <Divider />
           <MenuItem onClick={handleClickLogout}>
             <ListItemIcon>

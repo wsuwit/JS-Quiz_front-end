@@ -1,7 +1,6 @@
+import "./App.css";
 import { useContext } from "react";
 import { Redirect, Switch, Route, BrowserRouter } from "react-router-dom";
-
-import "./App.css";
 import Navbar from "./components/Navbar";
 import routes from "./config/route";
 import Footer from "./components/Footer";
