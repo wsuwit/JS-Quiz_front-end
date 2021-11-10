@@ -7,9 +7,9 @@ import axios from "../../config/axios";
 function AdminTool() {
   const [fromQuizBank, setFromQuizBank] = useState(quizBank);
   const [displayCreate, setDisplayCreate] = useState(false);
-  const [displayEdit, setDisplayEdit] = useState(true);
+  const [displayEdit, setDisplayEdit] = useState(false);
   const [disableAddNewSubject, setDisableAddNewSubject] = useState(false);
-  const [quizId, setQuizId] = useState("");
+  const [quizId, setQuizId] = useState(null);
 
   // console.log("@fromQuizBank:", fromQuizBank);
   // console.log("@quizId:", quizId);
@@ -22,10 +22,6 @@ function AdminTool() {
     };
     fetchQuiz();
   }, []);
-
-  const handleBtnClickSubject = (subjectId) => {
-    setQuizId(subjectId);
-  };
 
   return (
     <>
@@ -46,7 +42,12 @@ function AdminTool() {
               <div key={idx} className="w3-display-container">
                 <button
                   className="w3-button w3-block w3-ripple"
-                  onClick={() => handleBtnClickSubject(subjectObj.id)}
+                  onClick={() => {
+                    setQuizId(subjectObj.id);
+                    setDisplayEdit(true);
+                    setDisplayCreate(false);
+                    setDisableAddNewSubject(false);
+                  }}
                 >
                   {subjectObj.subjectName}
                 </button>
@@ -80,7 +81,6 @@ function AdminTool() {
               setDisableAddNewSubject={setDisableAddNewSubject}
               setDisplayEdit={setDisplayEdit}
               fromQuizBank={fromQuizBank}
-              setFromQuizBank={setFromQuizBank}
             />
           )}
         </section>

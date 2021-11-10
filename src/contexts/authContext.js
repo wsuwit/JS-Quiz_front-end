@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { user as initialUser } from "../services/localStorage";
 
 const AuthContext = createContext();

@@ -1,27 +1,28 @@
 import axios from "../config/axios";
 import React, { useContext, useState } from "react";
-import { setToken, getToken } from "../services/localStorage";
+import { setToken } from "../services/localStorage";
 import { AuthContext } from "../contexts/authContext";
 import { UserContext } from "../contexts/userContext";
 import jwtDecode from "jwt-decode";
 
 function Login({ loginStatus }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginObj, setLoginObj] = useState({ email: "", password: "" });
 
   const { setToggleUser } = useContext(UserContext);
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
+
+  console.log("@loginObj:", loginObj);
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth/login", {
-        email,
-        password
+      const resLogin = await axios.post("/auth/login", {
+        email: loginObj.email,
+        password: loginObj.password
       });
-      // console.log('LogRes: ', res);
-      setToken(res.data.token);
-      setUser(jwtDecode(res.data.token));
+      console.log("@resLogin:", resLogin);
+      setToken(resLogin.data.token);
+      setUser(jwtDecode(resLogin.data.token));
       setToggleUser((current) => !current);
     } catch (error) {
       console.dir(error);
@@ -69,6 +70,9 @@ function Login({ loginStatus }) {
                 placeholder="Enter Username"
                 name="username"
                 required
+                onChange={(e) => {
+                  setLoginObj((cur) => ({ ...cur, email: e.target.value }));
+                }}
               />
               <label>
                 <b>Password</b>
@@ -79,6 +83,9 @@ function Login({ loginStatus }) {
                 placeholder="Enter Password"
                 name="password"
                 required
+                onChange={(e) => {
+                  setLoginObj((cur) => ({ ...cur, password: e.target.value }));
+                }}
               />
               <div className="w3-center w3-small">
                 <p>Not yet a member?</p>
@@ -102,7 +109,7 @@ function Login({ loginStatus }) {
                 className="w3-button w3-block w3-orange w3-text-white w3-section w3-padding"
                 type="submit"
                 onClick={(e) => {
-                  e.preventDefault();
+                  handleSubmitLogin(e);
                 }}
               >
                 Continue

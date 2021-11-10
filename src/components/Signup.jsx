@@ -1,6 +1,27 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 function Signup() {
+  const [registerObj, setRegisterObj] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    nickname: ""
+  });
+
+  console.log("@registerObj:", registerObj);
+
+  const handleSubmitSignup = async (e) => {
+    e.preventDefault();
+    try {
+      window.document.getElementById("SignUp-modal").style.display = "none";
+      const resSignup = await axios.post(`/auth/register`, registerObj);
+      console.log("@resSignup:", resSignup);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div id="SignUp-modal" className="w3-modal">
@@ -42,6 +63,9 @@ function Signup() {
                 placeholder="Enter Email"
                 name="email"
                 required
+                onChange={(e) =>
+                  setRegisterObj((cur) => ({ ...cur, email: e.target.value }))
+                }
               />
               <label>
                 <b>Password</b>
@@ -52,6 +76,12 @@ function Signup() {
                 placeholder="Enter Password"
                 name="psw"
                 required
+                onChange={(e) =>
+                  setRegisterObj((cur) => ({
+                    ...cur,
+                    password: e.target.value
+                  }))
+                }
               />
               <label>
                 <b>Confirm Password</b>
@@ -62,6 +92,12 @@ function Signup() {
                 placeholder="Enter Confirm Password"
                 name="conpsw"
                 required
+                onChange={(e) =>
+                  setRegisterObj((cur) => ({
+                    ...cur,
+                    confirmPassword: e.target.value
+                  }))
+                }
               />
               <label>
                 <b>Nickname</b>
@@ -72,12 +108,18 @@ function Signup() {
                 placeholder="Enter Nickname"
                 name="usrname"
                 required
+                onChange={(e) =>
+                  setRegisterObj((cur) => ({
+                    ...cur,
+                    nickname: e.target.value
+                  }))
+                }
               />
               <button
                 className="w3-button w3-orange w3-text-white w3-margin-top w3-padding"
                 type="submit"
                 style={{ width: "100%" }}
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => handleSubmitSignup(e)}
               >
                 Sign up for free
               </button>

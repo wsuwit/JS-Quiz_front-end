@@ -9,14 +9,16 @@ import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import { Fragment, useContext, useState } from "react";
 import { AuthContext } from "../contexts/authContext";
-import { UserContext } from "../contexts/userContext";
 import { removeToken } from "../services/localStorage";
+import avatar from "./images/Avatar.jpg";
+import { useHistory } from "react-router-dom";
 
-function DropBarMenu({ setOpen }) {
+function DropBarMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { setUser, setToggle } = useContext(AuthContext);
-  const { userById } = useContext(UserContext);
+  const { setUser } = useContext(AuthContext);
   const open = Boolean(anchorEl);
+
+  const history = useHistory();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -25,8 +27,7 @@ function DropBarMenu({ setOpen }) {
   const handleClickLogout = () => {
     setUser(null);
     removeToken();
-    setToggle((current) => !current);
-    setOpen((current) => !current);
+    history.push("/");
   };
 
   const handleClose = () => {
@@ -34,7 +35,7 @@ function DropBarMenu({ setOpen }) {
   };
 
   return (
-    <>
+    <div className="w3-right w3-mobile">
       <Fragment>
         <Box
           sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
@@ -43,12 +44,14 @@ function DropBarMenu({ setOpen }) {
             <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
               <Avatar
                 sx={{ width: 43, height: 43 }}
-                src={userById.profileImage}
+                // src={userById.profileImage}
+                src={avatar}
               ></Avatar>
             </IconButton>
           </Tooltip>
         </Box>
         <Menu
+          disableScrollLock={true}
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
@@ -82,31 +85,31 @@ function DropBarMenu({ setOpen }) {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem
-          // onClick={() => {
-          //   history.push({
-          //     pathname: `/my-profile`,
-          //     state: {
-          //       alignmentHistory: "myProfile"
-          //     }
-          //   });
-          // }}
+          {/* <MenuItem
+          onClick={() => {
+            history.push({
+              pathname: `/my-profile`,
+              state: {
+                alignmentHistory: "myProfile"
+              }
+            });
+          }}
           >
             My Profile
-          </MenuItem>
-          <MenuItem
-          // onClick={() => {
-          //   history.push({
-          //     pathname: `/my-profile`,
-          //     state: {
-          //       alignmentHistory: "dashboard",
-          //       alignmentDashboard: "2"
-          //     }
-          //   });
-          // }}
+          </MenuItem> */}
+          {/* <MenuItem
+          onClick={() => {
+            history.push({
+              pathname: `/my-profile`,
+              state: {
+                alignmentHistory: "dashboard",
+                alignmentDashboard: "2"
+              }
+            });
+          }}
           >
             My Course
-          </MenuItem>
+          </MenuItem> */}
           <Divider />
           <MenuItem onClick={handleClickLogout}>
             <ListItemIcon>
@@ -116,7 +119,7 @@ function DropBarMenu({ setOpen }) {
           </MenuItem>
         </Menu>
       </Fragment>
-    </>
+    </div>
   );
 }
 

@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import axios from "../config/axios";
+import React, { useEffect, useState } from "react";
 import quizBank from "../quizBankCenter/quizBank";
+import light from "./images/light.gif";
+import swirling from "./images/swirling.gif";
 
 function Quiz() {
   const [subjectIndex, setSubjectIndex] = useState(0);
-  const { subjectName, questions } = quizBank[subjectIndex];
   const [showQuizStart, setShowQuizStart] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showQuizResult, setShowQuizResult] = useState(false);
   const [score, setScore] = useState(0);
+  const [allQuizzes, setAllQuizzes] = useState(quizBank);
+  const { subjectName, questions } = allQuizzes[subjectIndex];
   const resultPercent = (score / questions.length) * 100;
+
+  console.log("@allQuizzes:", allQuizzes);
+  console.log("@subjectIndex:", subjectIndex);
+
+  useEffect(() => {
+    axios.get(`/quiz`).then((res) => {
+      console.log("@resGet:", res.data.result);
+      setAllQuizzes(res.data.result);
+    });
+  }, []);
 
   const handleAnswerOptionClick = (isCorrect) => {
     if (isCorrect) {
@@ -16,6 +30,7 @@ function Quiz() {
     }
 
     const nextQuestion = currentQuestion + 1;
+
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
     } else {
@@ -29,6 +44,7 @@ function Quiz() {
     } else {
       setSubjectIndex(0);
     }
+
     setScore(0);
     setCurrentQuestion(0);
     setShowQuizStart(true);
@@ -74,7 +90,7 @@ function Quiz() {
                 <p className="w3-text-white">Click on the light</p>
               </div>
               <img
-                src="https://i.gifer.com/7bk3.gif"
+                src={light}
                 alt="the light"
                 width="300px"
                 className="w3-ripple pointer"
@@ -124,7 +140,7 @@ function Quiz() {
               </div>
               {resultPercent >= 80 && (
                 <img
-                  src="https://i.gifer.com/7bk3.gif"
+                  src={light}
                   alt="the light"
                   width="300px"
                   className="w3-ripple pointer"
@@ -134,7 +150,7 @@ function Quiz() {
               {/* # Sometimes re-rendering of state can cause the src link ERROR */}
               <img
                 // ? Not allowed to load local resource: file://images/the-swirling.gif
-                src="https://i.gifer.com/YVWA.gif"
+                src={swirling}
                 alt="the swirling"
                 width="150px"
                 className="w3-ripple pointer"
@@ -143,33 +159,31 @@ function Quiz() {
             </article>
           ) : (
             // {/* <!-- Quizzing --> */}
-            <div>
-              <article className="w3-dark-gray w3-padding-16 w3-animate-opacity Quiz--bg ">
-                <p className="w3-margin-left">{subjectName}</p>
-                <p className="w3-margin-left">
-                  ?{currentQuestion + 1} of {questions.length}
-                </p>
-                <p className="w3-margin-left">
-                  {questions[currentQuestion].questionText}
-                </p>
-                <div className="Quiz">
-                  {questions[currentQuestion].answerOptions
-                    .sort(() => Math.random() - 0.5)
-                    .map((answerOption, idx) => (
-                      <p
-                        key={idx}
-                        className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice"
-                        onClick={() =>
-                          handleAnswerOptionClick(answerOption.isCorrect)
-                        }
-                      >
-                        {answerOption.answerText}
-                      </p>
-                    ))}
-                </div>
-                <hr />
-              </article>
-            </div>
+            <article className="w3-dark-gray w3-padding-16 w3-animate-opacity Quiz--bg ">
+              <p className="w3-margin-left">{subjectName}</p>
+              <p className="w3-margin-left">
+                ?{currentQuestion + 1} of {questions.length}
+              </p>
+              <p className="w3-margin-left">
+                {questions[currentQuestion].questionText}
+              </p>
+              <div className="Quiz">
+                {questions[currentQuestion].answerOptions
+                  .sort(() => Math.random() - 0.5)
+                  .map((answerOption, idx) => (
+                    <p
+                      key={idx}
+                      className="w3-padding w3-margin w3-mobile w3-small w3-ripple Quiz__choice"
+                      onClick={() =>
+                        handleAnswerOptionClick(answerOption.isCorrect)
+                      }
+                    >
+                      {answerOption.answerText}
+                    </p>
+                  ))}
+              </div>
+              <hr />
+            </article>
           )}
         </section>
         <hr />

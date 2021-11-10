@@ -1,6 +1,9 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 function Home() {
+  const history = useHistory();
+
   return (
     <>
       <main id="Home" className="w3-container w3-animate-opacity Page">
@@ -18,7 +21,7 @@ function Home() {
             </p>
             <button
               className="w3-button w3-orange w3-hover-deep-orange w3-text-white w3-round-large w3-ripple"
-              onClick={() => {}}
+              onClick={() => history.push("/quiz")}
             >
               Play now
             </button>

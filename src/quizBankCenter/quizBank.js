@@ -61,56 +61,6 @@ const quizBank = [
           { answerText: "concat()", isCorrect: false },
           { answerText: "indexOf()", isCorrect: false }
         ]
-      },
-      {
-        questionText:
-          "Which of the following function of String object returns the index within the calling String object of the last occurrence of the specified value?",
-        answerOptions: [
-          { answerText: "lastIndexOf()", isCorrect: true },
-          { answerText: "search()", isCorrect: false },
-          { answerText: "substr()", isCorrect: false },
-          { answerText: "indexOf()", isCorrect: false }
-        ]
-      },
-      {
-        questionText:
-          "Which of the following function of String object returns the primitive value of the specified object.",
-        answerOptions: [
-          { answerText: "toLocaleUpperCase()", isCorrect: false },
-          { answerText: "toUpperCase()", isCorrect: false },
-          { answerText: "toString()", isCorrect: false },
-          { answerText: "valueOf()", isCorrect: true }
-        ]
-      },
-      {
-        questionText:
-          "Which of the following function of String object causes a string to be displayed as a subscript, as if it were in a <sub> tag?",
-        answerOptions: [
-          { answerText: "sup()", isCorrect: false },
-          { answerText: "small()", isCorrect: false },
-          { answerText: "strike()", isCorrect: false },
-          { answerText: "sub()", isCorrect: true }
-        ]
-      },
-      {
-        questionText:
-          "Which of the following function of Array object applies a function simultaneously against two values of the array (from left-to-right) as to reduce it to a single value?",
-        answerOptions: [
-          { answerText: "pop()", isCorrect: false },
-          { answerText: "push()", isCorrect: false },
-          { answerText: "reduce()", isCorrect: true },
-          { answerText: "reduceRight()", isCorrect: false }
-        ]
-      },
-      {
-        questionText:
-          "Which of the following function of Array object represents the source code of an object?",
-        answerOptions: [
-          { answerText: "toSource()", isCorrect: true },
-          { answerText: "splice()", isCorrect: false },
-          { answerText: "toString()", isCorrect: false },
-          { answerText: "unshift()", isCorrect: false }
-        ]
       }
     ]
   }
