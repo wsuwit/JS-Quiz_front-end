@@ -1,6 +1,21 @@
-import React from "react";
+import axios from "../config/axios";
+import React, { useEffect, useState } from "react";
 
 function LeaderBoard() {
+  const [playerData, setPlayerData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`/user`)
+      .then((res) => {
+        console.log("@resUser:", res.data.result);
+        setPlayerData(
+          res.data.result.sort((a, b) => b.score - a.score).slice(0, 10)
+        );
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <main id="Leader" className="w3-container w3-animate-opacity Page ">
@@ -27,21 +42,23 @@ function LeaderBoard() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="w3-hover-khaki">
-                  <td>1</td>
-                  <td>Hero 001</td>
-                  <td>9999</td>
-                </tr>
-                <tr className="w3-hover-light-green">
-                  <td>2</td>
-                  <td>Hero 002</td>
-                  <td>8888</td>
-                </tr>
-                <tr className="w3-hover-pale-red">
-                  <td>3</td>
-                  <td>Hero 003</td>
-                  <td>7777</td>
-                </tr>
+                {playerData?.map((elem, idx) => (
+                  <tr
+                    className={
+                      idx === 0
+                        ? `w3-hover-khaki`
+                        : idx === 1
+                        ? `w3-hover-light-green`
+                        : idx === 2
+                        ? `w3-hover-pale-red`
+                        : ""
+                    }
+                  >
+                    <td>{idx + 1}</td>
+                    <td>{elem.nickname}</td>
+                    <td>{elem.score}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </article>
