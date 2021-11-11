@@ -3,13 +3,19 @@ import React, { useEffect, useState } from "react";
 
 function Curriculum() {
   const [quiz, setQuiz] = useState([]);
-  const [userById, setUserById] = useState({});
+  // const [userById, setUserById] = useState({});
+
+  console.log("@quizCurriculum:", quiz);
 
   useEffect(() => {
     axios
       .get(`/quiz`)
       .then((res) => setQuiz(res.data.result))
       .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    // axios.get(`/user/myId/`)
   }, []);
 
   return (
@@ -46,18 +52,16 @@ function Curriculum() {
             >
               Go to current challenge
             </button>
-            <button
-              className="w3-button w3-orange w3-text-white w3-section w3-mobile w3-ripple"
-              style={{ width: "60%" }}
-            >
-              JavaScript Easy Quiz
-            </button>
-            <button
-              className="w3-button w3-orange w3-text-white w3-section w3-mobile w3-ripple"
-              style={{ width: "60%" }}
-            >
-              JavaScript Basic 1
-            </button>
+
+            {quiz.map((elem, idx) => (
+              <button
+                key={idx}
+                className="w3-button w3-orange w3-text-white w3-section w3-mobile w3-ripple"
+                style={{ width: "60%" }}
+              >
+                {elem.subjectName}
+              </button>
+            ))}
           </article>
         </section>
       </main>

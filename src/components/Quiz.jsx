@@ -38,12 +38,6 @@ function Quiz() {
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
     } else {
-      // if (user) {
-      //   axios
-      //     .put(`/user/updateDetail`, { score, currentIndex: subjectIndex })
-      //     .then((res) => console.log("@resScore:", res.data.rows))
-      //     .catch((err) => console.log(err));
-      // }
       setShowQuizResult(true);
     }
   };
@@ -69,13 +63,6 @@ function Quiz() {
   };
 
   const handleButtonRetake = () => {
-    if (user) {
-      axios
-        .put(`/user/updateDetail`, { score, currentIndex: subjectIndex })
-        .then((res) => console.log("@resScore:", res.data.rows))
-        .catch((err) => console.log(err));
-    }
-
     setScore(0);
     setCurrentQuestion(0);
     setShowQuizStart(true);
@@ -173,9 +160,7 @@ function Quiz() {
                   onClick={handleButtonSubjectIndex}
                 />
               )}
-              {/* # Sometimes re-rendering of state can cause the src link ERROR */}
               <img
-                // ? Not allowed to load local resource: file://images/the-swirling.gif
                 src={swirling}
                 alt="the swirling"
                 width="150px"

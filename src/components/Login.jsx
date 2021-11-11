@@ -2,13 +2,11 @@ import axios from "../config/axios";
 import React, { useContext, useState } from "react";
 import { setToken } from "../services/localStorage";
 import { AuthContext } from "../contexts/authContext";
-import { UserContext } from "../contexts/userContext";
 import jwtDecode from "jwt-decode";
 
 function Login({ loginStatus }) {
   const [loginObj, setLoginObj] = useState({ email: "", password: "" });
 
-  const { setToggleUser } = useContext(UserContext);
   const { setUser } = useContext(AuthContext);
 
   console.log("@loginObj:", loginObj);
@@ -23,7 +21,6 @@ function Login({ loginStatus }) {
       console.log("@resLogin:", resLogin);
       setToken(resLogin.data.token);
       setUser(jwtDecode(resLogin.data.token));
-      setToggleUser((current) => !current);
     } catch (error) {
       console.dir(error);
     }

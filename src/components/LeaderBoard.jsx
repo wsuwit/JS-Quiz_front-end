@@ -44,6 +44,7 @@ function LeaderBoard() {
               <tbody>
                 {playerData?.map((elem, idx) => (
                   <tr
+                    key={idx}
                     className={
                       idx === 0
                         ? `w3-hover-khaki`
