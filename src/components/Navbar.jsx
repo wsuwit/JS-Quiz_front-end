@@ -40,12 +40,15 @@ function Navbar() {
         >
           Leader Board
         </button>
-        {/* <button
-          className="w3-text-white w3-button w3-ripple w3-mobile"
-          onClick={() => history.push("/curriculum")}
-        >
-          Curriculum
-        </button> */}
+        {role !== "guest" && (
+          <button
+            className="w3-text-white w3-button w3-ripple w3-mobile"
+            onClick={() => history.push("/curriculum")}
+          >
+            Curriculum
+          </button>
+        )}
+
         {role === "admin" && (
           <button
             className="w3-text-white w3-button w3-ripple w3-mobile w3-amber"

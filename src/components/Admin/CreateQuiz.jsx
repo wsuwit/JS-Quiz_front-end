@@ -41,13 +41,9 @@ function CreateQuiz({
     <>
       {/* <!-- Create Questions --> */}
       {displayCreate && (
-        <div
-          style={{
-            width: "100%"
-          }}
-        >
-          <div className="w3-row w3-margin-left">
-            <p className="w3-center ">
+        <div className="w3-container w3-blue-gray">
+          <div className="w3-margin-left">
+            <p className="w3-center">
               <b>Create Quiz Form</b>
             </p>
             <div
@@ -60,22 +56,22 @@ function CreateQuiz({
               {/* # Subject Name */}
               <input
                 type="text"
-                style={{ minWidth: "500px" }}
-                className="w3-mobile "
+                style={{ width: "460px" }}
+                className="w3-mobile w3-input w3-round"
                 onChange={handleChangeSubject}
-                placeholder="Enter Subject name here..."
+                placeholder="Enter Subject here..."
               />
 
               {/* # Btn Group */}
-              <div className="w3-block w3-right">
+              <div className=" w3-right w3-margin-right">
                 <button
-                  className="w3-green w3-button w3-ripple w3-mobile w3-margin-left"
+                  className="w3-green w3-button w3-ripple w3-mobile w3-margin-left w3-round"
                   onClick={handleBtnCreate}
                 >
                   Create
                 </button>
                 <button
-                  className="w3-red w3-button w3-ripple w3-mobile w3-margin-left"
+                  className="w3-red w3-button w3-ripple w3-mobile w3-margin-left w3-round"
                   onClick={() => {
                     setFromQuiz(createQuizTemplate);
                     setDisplayCreate(false);
@@ -100,7 +96,7 @@ function CreateQuiz({
                   cloneObj.questions.splice(index, 1);
                   setFromQuiz(cloneObj);
                 }}
-                className="w3-button w3-red w3-border-black w3-leftbar w3-display-topright w3-small w3-ripple w3-margin-right"
+                className="w3-button w3-red w3-border-black w3-leftbar w3-rightbar w3-bottombar w3-topbar w3-display-topright w3-small w3-ripple w3-margin-right w3-round"
               >
                 &times;
               </span>
@@ -114,7 +110,8 @@ function CreateQuiz({
               <p className="w3-margin-left w3-margin-right">
                 <input
                   type="text"
-                  style={{ width: "100%" }}
+                  className="w3-input w3-round"
+                  style={{ width: "1007px" }}
                   onChange={(e) => {
                     const { questions } = { ...fromQuiz };
                     const index = questions.findIndex(
@@ -131,19 +128,23 @@ function CreateQuiz({
                 />
               </p>
 
-              <div style={{ paddingRight: 30 }}>
+              <div className="w3-container" style={{ width: "1105px" }}>
                 {/* # Answer Options */}
                 {fromQuiz.questions[idx].answerOptions.map(
                   (currAnswer, ansIdx) => (
                     <div
                       key={ansIdx}
-                      className="w3-padding-small w3-margin w3-mobile w3-small w3-ripple Quiz__choice"
-                      style={{ minHeight: "2rem", width: "100%" }}
+                      className="w3-padding-small w3-margin  w3-mobile w3-small w3-ripple Quiz__choice"
+                      style={{
+                        minHeight: "2rem",
+                        width: "1055px",
+                        display: "flex"
+                      }}
                     >
                       {/* # Answer Checkbox */}
                       <input
                         type="checkbox"
-                        className="w3-margin-right"
+                        className="w3-margin-right w3-check"
                         onChange={(e) => {
                           const { questions } = { ...fromQuiz };
                           const index = questions.findIndex(
@@ -161,8 +162,9 @@ function CreateQuiz({
                       {/* # Answer Text */}
                       <input
                         type="text"
+                        className="w3-input w3-round w3-margin-right"
                         style={{
-                          width: "93%"
+                          width: "990px"
                         }}
                         onChange={(e) => {
                           const { questions } = { ...fromQuiz };
@@ -186,7 +188,7 @@ function CreateQuiz({
                       {/* # Answer Delete Option */}
                       {curQuizObj.answerOptions.length > 2 && (
                         <span
-                          className="w3-button w3-red w3-ripple w3-right"
+                          className="w3-button w3-red w3-ripple w3-round"
                           onClick={() => {
                             const { questions } = { ...fromQuiz };
                             const choices = questions[idx].answerOptions;
@@ -211,7 +213,7 @@ function CreateQuiz({
                 {curQuizObj.answerOptions.length < 4 && (
                   <div className="Quiz">
                     <p
-                      className="w3-padding-small w3-margin w3-mobile w3-small w3-button w3-ripple Quiz__choice w3-green"
+                      className="w3-padding-small w3-margin w3-mobile w3-button w3-ripple Quiz__choice w3-green"
                       onClick={() => {
                         const cloneObj = { ...fromQuiz };
                         cloneObj.questions[idx].answerOptions.push({

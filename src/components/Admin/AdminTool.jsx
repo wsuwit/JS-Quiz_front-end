@@ -16,9 +16,13 @@ function AdminTool() {
 
   useEffect(() => {
     const fetchQuiz = async () => {
-      const resQuiz = await axios.get("/quiz");
-      // console.log("@resQuiz:", resQuiz.data.result);
-      setFromQuizBank(resQuiz.data.result);
+      try {
+        const resQuiz = await axios.get("/quiz");
+        // console.log("@resQuiz:", resQuiz.data.result);
+        setFromQuizBank(resQuiz.data.result);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchQuiz();
   }, []);
@@ -36,7 +40,7 @@ function AdminTool() {
         >
           <aside
             className="w3-text-orange w3-bar-block w3-light-gray"
-            style={{ width: "25%" }}
+            style={{ width: "320px" }}
           >
             {fromQuizBank.map((subjectObj, idx) => (
               <div key={idx} className="w3-display-container">
