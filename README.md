@@ -73,3 +73,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 This one is my little Quiz project front-end side feel free to take a look and clone as your wish.
 Hope you all enjoy!
+
+![image](https://user-images.githubusercontent.com/85886837/141413257-f4b964e1-43ae-49a1-813e-5857f65154ba.png)
+
+![image](https://user-images.githubusercontent.com/85886837/141413289-1585d7c7-802d-4812-a28e-39009dee7db0.png)
