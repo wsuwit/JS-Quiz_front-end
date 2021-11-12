@@ -81,3 +81,5 @@ Hope you all enjoy!
 ![image](https://user-images.githubusercontent.com/85886837/141413289-1585d7c7-802d-4812-a28e-39009dee7db0.png)
 
 Oops to be Admin! In mySQL's table `user` make sure to change "role" column from user to admin then apply in order to access Admin feature.
+
+*Remember to also clone the back-end part in order to play this website.
