@@ -76,6 +76,8 @@ Hope you all enjoy!
 
 ![image](https://user-images.githubusercontent.com/85886837/141413257-f4b964e1-43ae-49a1-813e-5857f65154ba.png)
 
+![image](https://user-images.githubusercontent.com/85886837/141416702-2c1d67ff-e8a2-4bc8-9155-8ad4e41212c4.png)
+
 ![image](https://user-images.githubusercontent.com/85886837/141413289-1585d7c7-802d-4812-a28e-39009dee7db0.png)
 
 Oops to be Admin! In mySQL's table `user` make sure to change "role" column from user to admin then apply in order to access Admin feature.
