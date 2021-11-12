@@ -1,21 +1,21 @@
 import axios from "../config/axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../contexts/authContext";
+import { useHistory } from "react-router-dom";
 
 function Curriculum() {
   const [quiz, setQuiz] = useState([]);
-  // const [userById, setUserById] = useState({});
+  const { setUserCurIndex } = useContext(AuthContext);
 
-  console.log("@quizCurriculum:", quiz);
+  // console.log("@quizSetForCurriculum:", quiz);
+
+  const history = useHistory();
 
   useEffect(() => {
     axios
       .get(`/quiz`)
       .then((res) => setQuiz(res.data.result))
       .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    // axios.get(`/user/myId/`)
   }, []);
 
   return (
@@ -48,7 +48,16 @@ function Curriculum() {
             <button
               className="w3-button w3-orange w3-text-white w3-section w3-mobile w3-ripple"
               style={{ width: " 50%", minWidth: "200px" }}
-              onClick={() => {}}
+              onClick={() => {
+                axios
+                  .get(`/user/myId/`)
+                  .then((res) => {
+                    console.log("@resMyId:", res.data.result);
+                    setUserCurIndex(res.data.result.currentIndex);
+                  })
+                  .catch((err) => console.log(err));
+                history.push(`/quiz`);
+              }}
             >
               Go to current challenge
             </button>
@@ -58,6 +67,10 @@ function Curriculum() {
                 key={idx}
                 className="w3-button w3-orange w3-text-white w3-section w3-mobile w3-ripple"
                 style={{ width: "60%" }}
+                onClick={() => {
+                  setUserCurIndex(idx);
+                  history.push(`/quiz`);
+                }}
               >
                 {elem.subjectName}
               </button>

@@ -13,10 +13,12 @@ function Quiz() {
   const [showQuizResult, setShowQuizResult] = useState(false);
   const [score, setScore] = useState(0);
   const [allQuizzes, setAllQuizzes] = useState(quizBank);
-  const { subjectName, questions } = allQuizzes[subjectIndex];
-  const resultPercent = (score / questions.length) * 100;
+  const resultPercent =
+    (score / (allQuizzes[subjectIndex] || allQuizzes[0]).questions.length) *
+    100;
+  const { subjectName, questions } = allQuizzes[subjectIndex] || allQuizzes[0];
 
-  const { user } = useContext(AuthContext);
+  const { user, userCurIndex } = useContext(AuthContext);
 
   console.log("@allQuizzes:", allQuizzes);
   console.log("@subjectIndex:", subjectIndex);
@@ -26,7 +28,8 @@ function Quiz() {
       console.log("@resGet:", res.data.result);
       setAllQuizzes(res.data.result);
     });
-  }, []);
+    if (user) setSubjectIndex(userCurIndex);
+  }, [user, userCurIndex]);
 
   const handleAnswerOptionClick = (isCorrect) => {
     if (isCorrect) {
@@ -131,7 +134,6 @@ function Quiz() {
                     : `Sorry! You do not pass the test.`}
                 </p>
                 <p className="w3-text-white">
-                  {/* # Conditional rendering, if output are multi-HTML-tags. The parent wrappers (<>child</>) are needed */}
                   {resultPercent >= 80 && (
                     <>
                       <b
